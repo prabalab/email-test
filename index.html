@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+const { useEffect } = React;
+
+const ContactForm = () => {
+  useEffect(() => {
+    // Initialize EmailJS with your user ID
+    emailjs.init("1725YGNlFRsVi38qm");
+  }, []);
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    // Get the form data
+    const form = e.target;
+
+    emailjs
+      .sendForm(
+        "service_zyvyssn", // Service ID from EmailJS
+        "template_t8rxv4o", // Template ID from EmailJS
+        form
+      )
+      .then(
+        (result) => {
+          console.log("Email sent successfully:", result.text);
+          alert("Message sent successfully!");
+        },
+        (error) => {
+          console.error("Error sending email:", error);
+          alert("Failed to send message. Please try again later.");
+        }
+      );
+
+    form.reset(); // Reset the form after submission
+  };
+
+  return (
+    <form onSubmit={sendEmail}>
+      <label>Name:</label>
+      <input type="text" name="name" required />
+      <label>Email:</label>
+      <input type="email" name="email" required />
+      <label>Message:</label>
+      <textarea name="message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  );
+};
+
+const App = () => {
+
+  return (
+    <div>
+<ContactForm />
+    </div>
+  );
+};
+
+// Rendering the application
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+
+</body>
+</html>
