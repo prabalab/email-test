@@ -1,1 +1,32 @@
 
+<html>
+<head>
+<script src="https://smtpjs.com/v3/smtp.js"> </script>
+</head>
+<body>
+    <form onSubmit="emailSend(); reset(); return false;">
+      <label>Name:</label>
+      <input type="text" name="name" required />
+      <label>Email:</label>
+      <input type="email" name="email" required />
+      <label>Message:</label>
+      <textarea name="message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <script>
+    function emailSend()
+    {
+        Email.send({ 
+        Host : "smtp.mailendo.com",
+         Username : "web.prabal@outlook.com", 
+        Password : "EF0571E446143651AC2CE666BE049F9AB072", 
+        To : 'mithun.ultra@yahoo.com', 
+        From : "web.prabal@outlook.com", 
+        Subject : "This is the subject", 
+        Body : "And this is the body" 
+        }).then( 
+        message => alert(message) );
+    }
+    </script>
+</body>
+</html>
